@@ -1,0 +1,16 @@
+  199  ls
+  200  cd lab_1
+  201  ls
+  202  docker build -t lab_1_pipeline .  
+  203  docker run lab_1_pipeline
+  204  docker run -it lab_1_pipeline
+  205  ls
+  206  docker build -t lab_1_pipeline .
+  207  docker run -it lab_1_pipeline
+  208  docker run -it --mount source=dockervol,target=/app lab_1_pipeline
+  209  history
+  210  history > command_history.txt\n
+  211  cd history
+  212  Get-History\n
+  213  history
+  214  history
