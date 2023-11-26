@@ -1,0 +1,26 @@
+[2023-11-23T00:01:35.902+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.extract scheduled__2023-11-22T00:00:00+00:00 [queued]>
+[2023-11-23T00:01:35.935+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.extract scheduled__2023-11-22T00:00:00+00:00 [queued]>
+[2023-11-23T00:01:35.935+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-23T00:01:35.942+0000] {taskinstance.py:1382} INFO - Executing <Task(BashOperator): extract> on 2023-11-22 00:00:00+00:00
+[2023-11-23T00:01:35.954+0000] {standard_task_runner.py:57} INFO - Started process 7183 to run task
+[2023-11-23T00:01:35.958+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'extract', 'scheduled__2023-11-22T00:00:00+00:00', '--job-id', '75', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmp43vfdt7c']
+[2023-11-23T00:01:35.963+0000] {standard_task_runner.py:85} INFO - Job 75: Subtask extract
+[2023-11-23T00:01:36.015+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.extract scheduled__2023-11-22T00:00:00+00:00 [running]> on host 1df7871f6344
+[2023-11-23T00:01:36.904+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='extract' AIRFLOW_CTX_EXECUTION_DATE='2023-11-22T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-22T00:00:00+00:00'
+[2023-11-23T00:01:36.906+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2023-11-23T00:01:36.907+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'curl --create-dirs -o /opt/***/data/2023-11-22/downloads/outcomes_2023-11-22.csv https://data.austintexas.gov/api/views/9t4d-g238/rows.csv']
+[2023-11-23T00:01:36.920+0000] {subprocess.py:86} INFO - Output:
+[2023-11-23T00:01:36.940+0000] {subprocess.py:93} INFO -   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[2023-11-23T00:01:36.941+0000] {subprocess.py:93} INFO -                                  Dload  Upload   Total   Spent    Left  Speed
+[2023-11-23T00:01:42.355+0000] {subprocess.py:93} INFO -   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  719k    0  719k    0     0   626k      0 --:--:--  0:00:01 --:--:--  625k100 4606k    0 4606k    0     0  2173k      0 --:--:--  0:00:02 --:--:-- 2172k100 8398k    0 8398k    0     0  2680k      0 --:--:--  0:00:03 --:--:-- 2679k100 11.7M    0 11.7M    0     0  2911k      0 --:--:--  0:00:04 --:--:-- 2910k100 13.2M    0 13.2M    0     0  2517k      0 --:--:--  0:00:05 --:--:-- 2592k100 13.2M    0 13.2M    0     0  2516k      0 --:--:--  0:00:05 --:--:-- 3026k
+[2023-11-23T00:01:42.383+0000] {subprocess.py:93} INFO - curl: (18) transfer closed with outstanding read data remaining
+[2023-11-23T00:01:42.417+0000] {subprocess.py:97} INFO - Command exited with return code 18
+[2023-11-23T00:01:42.463+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 210, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 18.
+[2023-11-23T00:01:42.469+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=outcomes_dag, task_id=extract, execution_date=20231122T000000, start_date=20231123T000135, end_date=20231123T000142
+[2023-11-23T00:01:42.487+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 75 for task extract (Bash command failed. The command returned a non-zero exit code 18.; 7183)
+[2023-11-23T00:01:42.530+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-11-23T00:01:42.609+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

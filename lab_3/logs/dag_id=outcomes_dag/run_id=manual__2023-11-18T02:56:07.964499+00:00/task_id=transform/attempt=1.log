@@ -1,0 +1,25 @@
+[2023-11-18T02:56:19.752+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.transform manual__2023-11-18T02:56:07.964499+00:00 [queued]>
+[2023-11-18T02:56:19.757+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.transform manual__2023-11-18T02:56:07.964499+00:00 [queued]>
+[2023-11-18T02:56:19.757+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-18T02:56:19.764+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): transform> on 2023-11-18 02:56:07.964499+00:00
+[2023-11-18T02:56:19.768+0000] {standard_task_runner.py:57} INFO - Started process 180 to run task
+[2023-11-18T02:56:19.771+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'transform', 'manual__2023-11-18T02:56:07.964499+00:00', '--job-id', '73', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmpjpciz_oz']
+[2023-11-18T02:56:19.774+0000] {standard_task_runner.py:85} INFO - Job 73: Subtask transform
+[2023-11-18T02:56:19.810+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.transform manual__2023-11-18T02:56:07.964499+00:00 [running]> on host c37e25b52ac2
+[2023-11-18T02:56:20.067+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='transform' AIRFLOW_CTX_EXECUTION_DATE='2023-11-18T02:56:07.964499+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-11-18T02:56:07.964499+00:00'
+[2023-11-18T02:56:20.533+0000] {warnings.py:109} WARNING - /opt/***/dags/etl_scripts/transform.py:67: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.
+  data['ts'] = pd.to_datetime(data.DateTime)
+
+[2023-11-18T02:56:28.461+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etl_scripts/transform.py", line 31, in transform_data
+    dim_animals.to_parquet(target_dir+'/dim_animals.parquet')
+NameError: name 'dim_animals' is not defined
+[2023-11-18T02:56:28.500+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=outcomes_dag, task_id=transform, execution_date=20231118T025607, start_date=20231118T025619, end_date=20231118T025628
+[2023-11-18T02:56:28.517+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 73 for task transform (name 'dim_animals' is not defined; 180)
+[2023-11-18T02:56:28.557+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-11-18T02:56:28.584+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

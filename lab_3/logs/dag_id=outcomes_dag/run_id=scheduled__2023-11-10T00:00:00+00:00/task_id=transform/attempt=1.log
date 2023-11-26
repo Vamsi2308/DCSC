@@ -1,0 +1,47 @@
+[2023-11-21T00:59:48.479+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [queued]>
+[2023-11-21T00:59:48.531+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [queued]>
+[2023-11-21T00:59:48.533+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-21T00:59:48.614+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): transform> on 2023-11-10 00:00:00+00:00
+[2023-11-21T00:59:48.635+0000] {standard_task_runner.py:57} INFO - Started process 172 to run task
+[2023-11-21T00:59:48.661+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'transform', 'scheduled__2023-11-10T00:00:00+00:00', '--job-id', '25', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmp2h1mbgza']
+[2023-11-21T00:59:48.669+0000] {standard_task_runner.py:85} INFO - Job 25: Subtask transform
+[2023-11-21T00:59:48.860+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [running]> on host bf1573643830
+[2023-11-21T00:59:51.667+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='transform' AIRFLOW_CTX_EXECUTION_DATE='2023-11-10T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-10T00:00:00+00:00'
+[2023-11-21T00:59:52.945+0000] {warnings.py:109} WARNING - /opt/***/dags/etl_scripts/transform.py:67: UserWarning: Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is consistent and as-expected, please specify a format.
+  data['ts'] = pd.to_datetime(data.DateTime)
+
+[2023-11-21T00:59:58.275+0000] {local_task_job_runner.py:228} INFO - Task exited with return code -9
+[2023-11-21T00:59:58.635+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2023-11-21T01:14:04.802+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [queued]>
+[2023-11-21T01:14:04.846+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [queued]>
+[2023-11-21T01:14:04.849+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-21T01:14:04.894+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): transform> on 2023-11-10 00:00:00+00:00
+[2023-11-21T01:14:04.910+0000] {standard_task_runner.py:57} INFO - Started process 200 to run task
+[2023-11-21T01:14:04.954+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'transform', 'scheduled__2023-11-10T00:00:00+00:00', '--job-id', '21', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmp0_1ayolx']
+[2023-11-21T01:14:04.991+0000] {standard_task_runner.py:85} INFO - Job 21: Subtask transform
+[2023-11-21T01:14:05.206+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [running]> on host 9a73044c5577
+[2023-11-21T01:14:10.573+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='transform' AIRFLOW_CTX_EXECUTION_DATE='2023-11-10T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-10T00:00:00+00:00'
+[2023-11-21T01:14:13.362+0000] {local_task_job_runner.py:228} INFO - Task exited with return code -9
+[2023-11-21T01:14:13.836+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2023-11-21T04:16:20.768+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [queued]>
+[2023-11-21T04:16:20.953+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [queued]>
+[2023-11-21T04:16:20.958+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-21T04:16:21.041+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): transform> on 2023-11-10 00:00:00+00:00
+[2023-11-21T04:16:21.067+0000] {standard_task_runner.py:57} INFO - Started process 203 to run task
+[2023-11-21T04:16:21.079+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'transform', 'scheduled__2023-11-10T00:00:00+00:00', '--job-id', '23', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmp7on5e9y9']
+[2023-11-21T04:16:21.093+0000] {standard_task_runner.py:85} INFO - Job 23: Subtask transform
+[2023-11-21T04:16:21.332+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [running]> on host dc3ce06c67c1
+[2023-11-21T04:16:27.793+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='transform' AIRFLOW_CTX_EXECUTION_DATE='2023-11-10T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-10T00:00:00+00:00'
+[2023-11-21T04:16:29.403+0000] {local_task_job_runner.py:228} INFO - Task exited with return code -9
+[2023-11-21T04:16:30.144+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2023-11-21T04:56:40.830+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [queued]>
+[2023-11-21T04:56:40.854+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [queued]>
+[2023-11-21T04:56:40.855+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-21T04:56:40.923+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): transform> on 2023-11-10 00:00:00+00:00
+[2023-11-21T04:56:40.933+0000] {standard_task_runner.py:57} INFO - Started process 246 to run task
+[2023-11-21T04:56:40.942+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'transform', 'scheduled__2023-11-10T00:00:00+00:00', '--job-id', '22', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmp35fb9k_g']
+[2023-11-21T04:56:40.967+0000] {standard_task_runner.py:85} INFO - Job 22: Subtask transform
+[2023-11-21T04:56:41.122+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.transform scheduled__2023-11-10T00:00:00+00:00 [running]> on host 921d770aa62c
+[2023-11-21T04:56:47.616+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='transform' AIRFLOW_CTX_EXECUTION_DATE='2023-11-10T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-10T00:00:00+00:00'
+[2023-11-21T04:56:50.014+0000] {local_task_job_runner.py:228} INFO - Task exited with return code -9
+[2023-11-21T04:56:50.467+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,91 @@
+[2023-11-20T23:58:00.807+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.load_dates_dim scheduled__2023-11-11T00:00:00+00:00 [queued]>
+[2023-11-20T23:58:00.926+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.load_dates_dim scheduled__2023-11-11T00:00:00+00:00 [queued]>
+[2023-11-20T23:58:00.931+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-20T23:58:01.203+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): load_dates_dim> on 2023-11-11 00:00:00+00:00
+[2023-11-20T23:58:01.236+0000] {standard_task_runner.py:57} INFO - Started process 266 to run task
+[2023-11-20T23:58:01.255+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'load_dates_dim', 'scheduled__2023-11-11T00:00:00+00:00', '--job-id', '36', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmpks_x_92m']
+[2023-11-20T23:58:01.287+0000] {standard_task_runner.py:85} INFO - Job 36: Subtask load_dates_dim
+[2023-11-20T23:58:01.540+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.load_dates_dim scheduled__2023-11-11T00:00:00+00:00 [running]> on host 3aa39f73e581
+[2023-11-20T23:58:08.214+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='load_dates_dim' AIRFLOW_CTX_EXECUTION_DATE='2023-11-11T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-11T00:00:00+00:00'
+[2023-11-20T23:58:09.000+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_dates_pkey"
+DETAIL:  Key (date_id)=(20190508) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etl_scripts/load.py", line 20, in load_data
+    pd.read_parquet(table_file).to_sql(table_name, conn, if_exists="append", index=False)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 2878, in to_sql
+    return sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 769, in to_sql
+    return pandas_sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1920, in to_sql
+    total_inserted = sql_engine.insert_records(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1470, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1461, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1023, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 929, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "dim_dates_pkey"
+DETAIL:  Key (date_id)=(20190508) already exists.
+
+[SQL: INSERT INTO dim_dates (date_id, date, year, month, day) VALUES (%(date_id)s, %(date)s, %(year)s, %(month)s, %(day)s)]
+[parameters: ({'date_id': '20190508', 'date': datetime.date(2019, 5, 8), 'year': 2019, 'month': 5, 'day': 8}, {'date_id': '20180718', 'date': datetime.date(2018, 7, 18), 'year': 2018, 'month': 7, 'day': 18}, {'date_id': '20200816', 'date': datetime.date(2020, 8, 16), 'year': 2020, 'month': 8, 'day': 16}, {'date_id': '20160213', 'date': datetime.date(2016, 2, 13), 'year': 2016, 'month': 2, 'day': 13}, {'date_id': '20140318', 'date': datetime.date(2014, 3, 18), 'year': 2014, 'month': 3, 'day': 18}, {'date_id': '20201005', 'date': datetime.date(2020, 10, 5), 'year': 2020, 'month': 10, 'day': 5}, {'date_id': '20200506', 'date': datetime.date(2020, 5, 6), 'year': 2020, 'month': 5, 'day': 6}, {'date_id': '20220719', 'date': datetime.date(2022, 7, 19), 'year': 2022, 'month': 7, 'day': 19}  ... displaying 10 of 3691 total bound parameter sets ...  {'date_id': '20231117', 'date': datetime.date(2023, 11, 17), 'year': 2023, 'month': 11, 'day': 17}, {'date_id': '20231119', 'date': datetime.date(2023, 11, 19), 'year': 2023, 'month': 11, 'day': 19})]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+[2023-11-20T23:58:09.066+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=outcomes_dag, task_id=load_dates_dim, execution_date=20231111T000000, start_date=20231120T235800, end_date=20231120T235809
+[2023-11-20T23:58:09.168+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 36 for task load_dates_dim ((psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "dim_dates_pkey"
+DETAIL:  Key (date_id)=(20190508) already exists.
+
+[SQL: INSERT INTO dim_dates (date_id, date, year, month, day) VALUES (%(date_id)s, %(date)s, %(year)s, %(month)s, %(day)s)]
+[parameters: ({'date_id': '20190508', 'date': datetime.date(2019, 5, 8), 'year': 2019, 'month': 5, 'day': 8}, {'date_id': '20180718', 'date': datetime.date(2018, 7, 18), 'year': 2018, 'month': 7, 'day': 18}, {'date_id': '20200816', 'date': datetime.date(2020, 8, 16), 'year': 2020, 'month': 8, 'day': 16}, {'date_id': '20160213', 'date': datetime.date(2016, 2, 13), 'year': 2016, 'month': 2, 'day': 13}, {'date_id': '20140318', 'date': datetime.date(2014, 3, 18), 'year': 2014, 'month': 3, 'day': 18}, {'date_id': '20201005', 'date': datetime.date(2020, 10, 5), 'year': 2020, 'month': 10, 'day': 5}, {'date_id': '20200506', 'date': datetime.date(2020, 5, 6), 'year': 2020, 'month': 5, 'day': 6}, {'date_id': '20220719', 'date': datetime.date(2022, 7, 19), 'year': 2022, 'month': 7, 'day': 19}  ... displaying 10 of 3691 total bound parameter sets ...  {'date_id': '20231117', 'date': datetime.date(2023, 11, 17), 'year': 2023, 'month': 11, 'day': 17}, {'date_id': '20231119', 'date': datetime.date(2023, 11, 19), 'year': 2023, 'month': 11, 'day': 19})]
+(Background on this error at: https://sqlalche.me/e/14/gkpj); 266)
+[2023-11-20T23:58:09.367+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-11-20T23:58:09.543+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2023-11-21T04:46:57.002+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.load_dates_dim scheduled__2023-11-11T00:00:00+00:00 [queued]>
+[2023-11-21T04:46:57.017+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.load_dates_dim scheduled__2023-11-11T00:00:00+00:00 [queued]>
+[2023-11-21T04:46:57.019+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-21T04:46:57.119+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): load_dates_dim> on 2023-11-11 00:00:00+00:00
+[2023-11-21T04:46:57.134+0000] {standard_task_runner.py:57} INFO - Started process 229 to run task
+[2023-11-21T04:46:57.161+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'load_dates_dim', 'scheduled__2023-11-11T00:00:00+00:00', '--job-id', '31', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmp89_vjcbi']
+[2023-11-21T04:46:57.178+0000] {standard_task_runner.py:85} INFO - Job 31: Subtask load_dates_dim
+[2023-11-21T04:46:57.367+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.load_dates_dim scheduled__2023-11-11T00:00:00+00:00 [running]> on host de20a855d915
+[2023-11-21T04:46:59.421+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='load_dates_dim' AIRFLOW_CTX_EXECUTION_DATE='2023-11-11T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-11T00:00:00+00:00'
+[2023-11-21T04:47:02.185+0000] {logging_mixin.py:154} INFO - dim_dates loaded
+[2023-11-21T04:47:02.197+0000] {python.py:194} INFO - Done. Returned value was: None
+[2023-11-21T04:47:02.306+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=outcomes_dag, task_id=load_dates_dim, execution_date=20231111T000000, start_date=20231121T044657, end_date=20231121T044702
+[2023-11-21T04:47:02.475+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2023-11-21T04:47:02.559+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
