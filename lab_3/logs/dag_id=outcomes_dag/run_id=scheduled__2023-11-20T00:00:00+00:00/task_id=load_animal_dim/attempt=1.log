@@ -1,0 +1,219 @@
+[2023-11-21T01:15:12.819+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [queued]>
+[2023-11-21T01:15:12.824+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [queued]>
+[2023-11-21T01:15:12.825+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-21T01:15:12.833+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): load_animal_dim> on 2023-11-20 00:00:00+00:00
+[2023-11-21T01:15:12.838+0000] {standard_task_runner.py:57} INFO - Started process 395 to run task
+[2023-11-21T01:15:12.842+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'load_animal_dim', 'scheduled__2023-11-20T00:00:00+00:00', '--job-id', '48', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmpapmwpkwj']
+[2023-11-21T01:15:12.845+0000] {standard_task_runner.py:85} INFO - Job 48: Subtask load_animal_dim
+[2023-11-21T01:15:12.883+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [running]> on host 9a73044c5577
+[2023-11-21T01:15:13.812+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='load_animal_dim' AIRFLOW_CTX_EXECUTION_DATE='2023-11-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-20T00:00:00+00:00'
+[2023-11-21T01:15:14.951+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_animals_pkey"
+DETAIL:  Key (animal_id)=(A794011) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etl_scripts/load.py", line 20, in load_data
+    pd.read_parquet(table_file).to_sql(table_name, conn, if_exists="append", index=False)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 2878, in to_sql
+    return sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 769, in to_sql
+    return pandas_sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1920, in to_sql
+    total_inserted = sql_engine.insert_records(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1470, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1461, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1023, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 929, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "dim_animals_pkey"
+DETAIL:  Key (animal_id)=(A794011) already exists.
+
+[SQL: INSERT INTO dim_animals (animal_id, name, dob, sex, animal_type, breed, color) VALUES (%(animal_id)s, %(name)s, %(dob)s, %(sex)s, %(animal_type)s, %(breed)s, %(color)s)]
+[parameters: ({'animal_id': 'A794011', 'name': 'Chunk', 'dob': '05/02/2017', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair Mix', 'color': 'Brown Tabby/White'}, {'animal_id': 'A776359', 'name': 'Gizmo', 'dob': '07/12/2017', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'Chihuahua Shorthair Mix', 'color': 'White/Brown'}, {'animal_id': 'A821648', 'name': None, 'dob': '08/16/2019', 'sex': None, 'animal_type': 'Other', 'breed': 'Raccoon', 'color': 'Gray'}, {'animal_id': 'A720371', 'name': 'Moose', 'dob': '10/08/2015', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'Anatol Shepherd/Labrador Retriever', 'color': 'Buff'}, {'animal_id': 'A674754', 'name': None, 'dob': '03/12/2014', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair Mix', 'color': 'Orange Tabby'}, {'animal_id': 'A659412', 'name': 'Princess', 'dob': '03/24/2013', 'sex': 'F', 'animal_type': 'Dog', 'breed': 'Chihuahua Shorthair Mix', 'color': 'Brown'}, {'animal_id': 'A814515', 'name': 'Quentin', 'dob': '03/01/2018', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'American Foxhound/Labrador Retriever', 'color': 'White/Brown'}, {'animal_id': 'A881795', 'name': None, 'dob': '05/26/2021', 'sex': None, 'animal_type': 'Cat', 'breed': 'Domestic Shorthair', 'color': 'Brown Tabby'}  ... displaying 10 of 141018 total bound parameter sets ...  {'animal_id': 'A852775', 'name': 'A852775', 'dob': '01/31/2022', 'sex': 'F', 'animal_type': 'Cat', 'breed': 'Domestic Medium Hair Mix', 'color': 'Tortie'}, {'animal_id': 'A854626', 'name': 'A854626', 'dob': '02/27/2022', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair Mix', 'color': 'Orange Tabby'})]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+[2023-11-21T01:15:14.962+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=outcomes_dag, task_id=load_animal_dim, execution_date=20231120T000000, start_date=20231121T011512, end_date=20231121T011514
+[2023-11-21T01:15:14.977+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 48 for task load_animal_dim ((psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "dim_animals_pkey"
+DETAIL:  Key (animal_id)=(A794011) already exists.
+
+[SQL: INSERT INTO dim_animals (animal_id, name, dob, sex, animal_type, breed, color) VALUES (%(animal_id)s, %(name)s, %(dob)s, %(sex)s, %(animal_type)s, %(breed)s, %(color)s)]
+[parameters: ({'animal_id': 'A794011', 'name': 'Chunk', 'dob': '05/02/2017', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair Mix', 'color': 'Brown Tabby/White'}, {'animal_id': 'A776359', 'name': 'Gizmo', 'dob': '07/12/2017', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'Chihuahua Shorthair Mix', 'color': 'White/Brown'}, {'animal_id': 'A821648', 'name': None, 'dob': '08/16/2019', 'sex': None, 'animal_type': 'Other', 'breed': 'Raccoon', 'color': 'Gray'}, {'animal_id': 'A720371', 'name': 'Moose', 'dob': '10/08/2015', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'Anatol Shepherd/Labrador Retriever', 'color': 'Buff'}, {'animal_id': 'A674754', 'name': None, 'dob': '03/12/2014', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair Mix', 'color': 'Orange Tabby'}, {'animal_id': 'A659412', 'name': 'Princess', 'dob': '03/24/2013', 'sex': 'F', 'animal_type': 'Dog', 'breed': 'Chihuahua Shorthair Mix', 'color': 'Brown'}, {'animal_id': 'A814515', 'name': 'Quentin', 'dob': '03/01/2018', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'American Foxhound/Labrador Retriever', 'color': 'White/Brown'}, {'animal_id': 'A881795', 'name': None, 'dob': '05/26/2021', 'sex': None, 'animal_type': 'Cat', 'breed': 'Domestic Shorthair', 'color': 'Brown Tabby'}  ... displaying 10 of 141018 total bound parameter sets ...  {'animal_id': 'A852775', 'name': 'A852775', 'dob': '01/31/2022', 'sex': 'F', 'animal_type': 'Cat', 'breed': 'Domestic Medium Hair Mix', 'color': 'Tortie'}, {'animal_id': 'A854626', 'name': 'A854626', 'dob': '02/27/2022', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair Mix', 'color': 'Orange Tabby'})]
+(Background on this error at: https://sqlalche.me/e/14/gkpj); 395)
+[2023-11-21T01:15:15.015+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-11-21T01:15:15.039+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2023-11-21T03:57:25.378+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [queued]>
+[2023-11-21T03:57:25.430+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [queued]>
+[2023-11-21T03:57:25.431+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-21T03:57:25.499+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): load_animal_dim> on 2023-11-20 00:00:00+00:00
+[2023-11-21T03:57:25.517+0000] {standard_task_runner.py:57} INFO - Started process 798 to run task
+[2023-11-21T03:57:25.562+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'load_animal_dim', 'scheduled__2023-11-20T00:00:00+00:00', '--job-id', '58', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmpcbwoon9x']
+[2023-11-21T03:57:25.571+0000] {standard_task_runner.py:85} INFO - Job 58: Subtask load_animal_dim
+[2023-11-21T03:57:25.715+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [running]> on host a0f615083db8
+[2023-11-21T03:57:29.486+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='load_animal_dim' AIRFLOW_CTX_EXECUTION_DATE='2023-11-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-20T00:00:00+00:00'
+[2023-11-21T03:57:34.200+0000] {local_task_job_runner.py:228} INFO - Task exited with return code -9
+[2023-11-21T03:57:34.401+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2023-11-21T04:18:20.979+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [queued]>
+[2023-11-21T04:18:21.251+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [queued]>
+[2023-11-21T04:18:21.313+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-21T04:18:21.681+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): load_animal_dim> on 2023-11-20 00:00:00+00:00
+[2023-11-21T04:18:21.801+0000] {standard_task_runner.py:57} INFO - Started process 428 to run task
+[2023-11-21T04:18:21.860+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'load_animal_dim', 'scheduled__2023-11-20T00:00:00+00:00', '--job-id', '53', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmpibbi7evt']
+[2023-11-21T04:18:21.918+0000] {standard_task_runner.py:85} INFO - Job 53: Subtask load_animal_dim
+[2023-11-21T04:18:22.735+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [running]> on host dc3ce06c67c1
+[2023-11-21T04:18:29.556+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='load_animal_dim' AIRFLOW_CTX_EXECUTION_DATE='2023-11-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-20T00:00:00+00:00'
+[2023-11-21T04:18:29.847+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 146, in _do_get
+    self._dec_overflow()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 143, in _do_get
+    return self._create_connection()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 691, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "database" to address: Name or service not known
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etl_scripts/load.py", line 20, in load_data
+    pd.read_parquet(table_file).to_sql(table_name, conn, if_exists="append", index=False, method = insert_on_conflict_nothing)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 2878, in to_sql
+    return sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 768, in to_sql
+    with pandasSQL_builder(con, schema=schema, need_transaction=True) as pandas_sql:
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 832, in pandasSQL_builder
+    return SQLDatabase(con, schema, need_transaction)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1539, in __init__
+    con = self.exit_stack.enter_context(con.connect())
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3325, in connect
+    return self._connection_cls(self, close_with_result=close_with_result)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 96, in __init__
+    else engine.raw_connection()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3404, in raw_connection
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3374, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2208, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 3371, in _wrap_pool_connect
+    return fn()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 327, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 894, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 493, in checkout
+    rec = pool._do_get()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 146, in _do_get
+    self._dec_overflow()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/impl.py", line 143, in _do_get
+    return self._create_connection()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 273, in _create_connection
+    return _ConnectionRecord(self)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 388, in __init__
+    self.__connect()
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 691, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/pool/base.py", line 686, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/create.py", line 574, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 598, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) could not translate host name "database" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+[2023-11-21T04:18:29.873+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=outcomes_dag, task_id=load_animal_dim, execution_date=20231120T000000, start_date=20231121T041821, end_date=20231121T041829
+[2023-11-21T04:18:29.893+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 53 for task load_animal_dim ((psycopg2.OperationalError) could not translate host name "database" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/14/e3q8); 428)
+[2023-11-21T04:18:29.961+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-11-21T04:18:29.997+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2023-11-21T04:58:15.807+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [queued]>
+[2023-11-21T04:58:15.819+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [queued]>
+[2023-11-21T04:58:15.821+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-21T04:58:15.833+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): load_animal_dim> on 2023-11-20 00:00:00+00:00
+[2023-11-21T04:58:15.840+0000] {standard_task_runner.py:57} INFO - Started process 457 to run task
+[2023-11-21T04:58:15.860+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'load_animal_dim', 'scheduled__2023-11-20T00:00:00+00:00', '--job-id', '49', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmpf0lw2mfj']
+[2023-11-21T04:58:15.870+0000] {standard_task_runner.py:85} INFO - Job 49: Subtask load_animal_dim
+[2023-11-21T04:58:15.918+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.load_animal_dim scheduled__2023-11-20T00:00:00+00:00 [running]> on host 921d770aa62c
+[2023-11-21T04:58:18.815+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='load_animal_dim' AIRFLOW_CTX_EXECUTION_DATE='2023-11-20T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-20T00:00:00+00:00'
+[2023-11-21T04:59:09.242+0000] {local_task_job_runner.py:228} INFO - Task exited with return code -9
+[2023-11-21T04:59:09.323+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

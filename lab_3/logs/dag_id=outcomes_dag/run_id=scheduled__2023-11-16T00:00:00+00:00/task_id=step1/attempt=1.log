@@ -1,0 +1,25 @@
+[2023-11-17T00:00:37.082+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.step1 scheduled__2023-11-16T00:00:00+00:00 [queued]>
+[2023-11-17T00:00:37.087+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.step1 scheduled__2023-11-16T00:00:00+00:00 [queued]>
+[2023-11-17T00:00:37.087+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-17T00:00:37.093+0000] {taskinstance.py:1382} INFO - Executing <Task(BashOperator): step1> on 2023-11-16 00:00:00+00:00
+[2023-11-17T00:00:37.097+0000] {standard_task_runner.py:57} INFO - Started process 1679 to run task
+[2023-11-17T00:00:37.100+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'step1', 'scheduled__2023-11-16T00:00:00+00:00', '--job-id', '43', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmpbpc2up8q']
+[2023-11-17T00:00:37.101+0000] {standard_task_runner.py:85} INFO - Job 43: Subtask step1
+[2023-11-17T00:00:37.177+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.step1 scheduled__2023-11-16T00:00:00+00:00 [running]> on host dbbe84160292
+[2023-11-17T00:00:37.240+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='step1' AIRFLOW_CTX_EXECUTION_DATE='2023-11-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2023-11-16T00:00:00+00:00'
+[2023-11-17T00:00:37.243+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2023-11-17T00:00:37.245+0000] {subprocess.py:75} INFO - Running command: ['/bin/bash', '-c', 'curl -o destination {SOURCE_URL}']
+[2023-11-17T00:00:37.252+0000] {subprocess.py:86} INFO - Output:
+[2023-11-17T00:00:37.277+0000] {subprocess.py:93} INFO -   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+[2023-11-17T00:00:37.277+0000] {subprocess.py:93} INFO -                                  Dload  Upload   Total   Spent    Left  Speed
+[2023-11-17T00:00:37.457+0000] {subprocess.py:93} INFO -   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: SOURCE_URL
+[2023-11-17T00:00:37.460+0000] {subprocess.py:97} INFO - Command exited with return code 6
+[2023-11-17T00:00:37.473+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 210, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 6.
+[2023-11-17T00:00:37.479+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=outcomes_dag, task_id=step1, execution_date=20231116T000000, start_date=20231117T000037, end_date=20231117T000037
+[2023-11-17T00:00:37.490+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 43 for task step1 (Bash command failed. The command returned a non-zero exit code 6.; 1679)
+[2023-11-17T00:00:37.533+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-11-17T00:00:37.550+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

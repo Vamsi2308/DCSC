@@ -1,0 +1,77 @@
+[2023-11-21T01:21:16.530+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: outcomes_dag.load_animal_dim manual__2023-11-21T01:20:55.358983+00:00 [queued]>
+[2023-11-21T01:21:16.539+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: outcomes_dag.load_animal_dim manual__2023-11-21T01:20:55.358983+00:00 [queued]>
+[2023-11-21T01:21:16.539+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 1
+[2023-11-21T01:21:16.548+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): load_animal_dim> on 2023-11-21 01:20:55.358983+00:00
+[2023-11-21T01:21:16.554+0000] {standard_task_runner.py:57} INFO - Started process 463 to run task
+[2023-11-21T01:21:16.563+0000] {standard_task_runner.py:84} INFO - Running: ['***', 'tasks', 'run', 'outcomes_dag', 'load_animal_dim', 'manual__2023-11-21T01:20:55.358983+00:00', '--job-id', '52', '--raw', '--subdir', 'DAGS_FOLDER/outcomes_dag.py', '--cfg-path', '/tmp/tmpeopu4bj_']
+[2023-11-21T01:21:16.577+0000] {standard_task_runner.py:85} INFO - Job 52: Subtask load_animal_dim
+[2023-11-21T01:21:16.637+0000] {task_command.py:416} INFO - Running <TaskInstance: outcomes_dag.load_animal_dim manual__2023-11-21T01:20:55.358983+00:00 [running]> on host 9a73044c5577
+[2023-11-21T01:21:17.393+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='outcomes_dag' AIRFLOW_CTX_TASK_ID='load_animal_dim' AIRFLOW_CTX_EXECUTION_DATE='2023-11-21T01:20:55.358983+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2023-11-21T01:20:55.358983+00:00'
+[2023-11-21T01:21:19.679+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "dim_animals_pkey"
+DETAIL:  Key (animal_id)=(A794011) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/etl_scripts/load.py", line 20, in load_data
+    pd.read_parquet(table_file).to_sql(table_name, conn, if_exists="append", index=False)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 2878, in to_sql
+    return sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 769, in to_sql
+    return pandas_sql.to_sql(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1920, in to_sql
+    total_inserted = sql_engine.insert_records(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1470, in insert_records
+    raise err
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1461, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 1023, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/sql.py", line 929, in _execute_insert
+    result = conn.execute(self.table.insert(), data)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 334, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1577, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1890, in _execute_context
+    self.dialect.do_executemany(
+  File "/home/airflow/.local/lib/python3.8/site-packages/sqlalchemy/dialects/postgresql/psycopg2.py", line 982, in do_executemany
+    context._psycopg2_fetched_rows = xtras.execute_values(
+  File "/home/airflow/.local/lib/python3.8/site-packages/psycopg2/extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "dim_animals_pkey"
+DETAIL:  Key (animal_id)=(A794011) already exists.
+
+[SQL: INSERT INTO dim_animals (animal_id, name, dob, sex, animal_type, breed, color) VALUES (%(animal_id)s, %(name)s, %(dob)s, %(sex)s, %(animal_type)s, %(breed)s, %(color)s)]
+[parameters: ({'animal_id': 'A794011', 'name': 'Chunk', 'dob': '05/02/2017', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair Mix', 'color': 'Brown Tabby/White'}, {'animal_id': 'A776359', 'name': 'Gizmo', 'dob': '07/12/2017', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'Chihuahua Shorthair Mix', 'color': 'White/Brown'}, {'animal_id': 'A821648', 'name': None, 'dob': '08/16/2019', 'sex': None, 'animal_type': 'Other', 'breed': 'Raccoon', 'color': 'Gray'}, {'animal_id': 'A720371', 'name': 'Moose', 'dob': '10/08/2015', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'Anatol Shepherd/Labrador Retriever', 'color': 'Buff'}, {'animal_id': 'A674754', 'name': None, 'dob': '03/12/2014', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair Mix', 'color': 'Orange Tabby'}, {'animal_id': 'A659412', 'name': 'Princess', 'dob': '03/24/2013', 'sex': 'F', 'animal_type': 'Dog', 'breed': 'Chihuahua Shorthair Mix', 'color': 'Brown'}, {'animal_id': 'A814515', 'name': 'Quentin', 'dob': '03/01/2018', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'American Foxhound/Labrador Retriever', 'color': 'White/Brown'}, {'animal_id': 'A860161', 'name': 'Lalo', 'dob': '05/04/2022', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair', 'color': 'Brown Tabby'}  ... displaying 10 of 141018 total bound parameter sets ...  {'animal_id': 'A888771', 'name': 'Jimmy Buffett', 'dob': '03/13/2022', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'Treeing Walker Coonhound/Labrador Retriever', 'color': 'Brown/White'}, {'animal_id': 'A892223', 'name': 'Stella', 'dob': '09/10/2023', 'sex': 'F', 'animal_type': 'Dog', 'breed': 'Labrador Retriever', 'color': 'Yellow/White'})]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+[2023-11-21T01:21:19.696+0000] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=outcomes_dag, task_id=load_animal_dim, execution_date=20231121T012055, start_date=20231121T012116, end_date=20231121T012119
+[2023-11-21T01:21:19.709+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 52 for task load_animal_dim ((psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "dim_animals_pkey"
+DETAIL:  Key (animal_id)=(A794011) already exists.
+
+[SQL: INSERT INTO dim_animals (animal_id, name, dob, sex, animal_type, breed, color) VALUES (%(animal_id)s, %(name)s, %(dob)s, %(sex)s, %(animal_type)s, %(breed)s, %(color)s)]
+[parameters: ({'animal_id': 'A794011', 'name': 'Chunk', 'dob': '05/02/2017', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair Mix', 'color': 'Brown Tabby/White'}, {'animal_id': 'A776359', 'name': 'Gizmo', 'dob': '07/12/2017', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'Chihuahua Shorthair Mix', 'color': 'White/Brown'}, {'animal_id': 'A821648', 'name': None, 'dob': '08/16/2019', 'sex': None, 'animal_type': 'Other', 'breed': 'Raccoon', 'color': 'Gray'}, {'animal_id': 'A720371', 'name': 'Moose', 'dob': '10/08/2015', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'Anatol Shepherd/Labrador Retriever', 'color': 'Buff'}, {'animal_id': 'A674754', 'name': None, 'dob': '03/12/2014', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair Mix', 'color': 'Orange Tabby'}, {'animal_id': 'A659412', 'name': 'Princess', 'dob': '03/24/2013', 'sex': 'F', 'animal_type': 'Dog', 'breed': 'Chihuahua Shorthair Mix', 'color': 'Brown'}, {'animal_id': 'A814515', 'name': 'Quentin', 'dob': '03/01/2018', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'American Foxhound/Labrador Retriever', 'color': 'White/Brown'}, {'animal_id': 'A860161', 'name': 'Lalo', 'dob': '05/04/2022', 'sex': 'M', 'animal_type': 'Cat', 'breed': 'Domestic Shorthair', 'color': 'Brown Tabby'}  ... displaying 10 of 141018 total bound parameter sets ...  {'animal_id': 'A888771', 'name': 'Jimmy Buffett', 'dob': '03/13/2022', 'sex': 'M', 'animal_type': 'Dog', 'breed': 'Treeing Walker Coonhound/Labrador Retriever', 'color': 'Brown/White'}, {'animal_id': 'A892223', 'name': 'Stella', 'dob': '09/10/2023', 'sex': 'F', 'animal_type': 'Dog', 'breed': 'Labrador Retriever', 'color': 'Yellow/White'})]
+(Background on this error at: https://sqlalche.me/e/14/gkpj); 463)
+[2023-11-21T01:21:19.781+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2023-11-21T01:21:19.817+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
